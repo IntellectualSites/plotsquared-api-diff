@@ -1,4 +1,4 @@
-name: Generate diff
+name: Generate diff for PlotSquared v6 to v7
 on:
   workflow_dispatch:
 
