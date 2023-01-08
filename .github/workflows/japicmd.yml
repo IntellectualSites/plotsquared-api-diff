@@ -1,0 +1,33 @@
+name: Generate japicmp report
+on:
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download japicmp
+        run: curl -qsL https://repo.maven.apache.org/maven2/com/github/siom79/japicmp/japicmp/0.17.1/japicmp-0.17.1-jar-with-dependencies.jar
+      - name: Download PlotSquared-Core v6
+        run: curl -qsL https://repo.maven.apache.org/maven2/com/plotsquared/PlotSquared-Core/6.10.5/PlotSquared-Core-6.10.5.jar
+      - name: Download PlotSquared-Bukkit v6
+        run: curl -qsL https://repo.maven.apache.org/maven2/com/plotsquared/PlotSquared-Bukkit/6.10.5/PlotSquared-Bukkit-6.10.5.
+      - name: Download PlotSquared-Core v7
+        run: curl -qsL https://repo.maven.apache.org/maven2/com/intellectualsites/plotsquared/plotsquared-core/7.0.0/plotsquared-core-7.0.0.jar
+      - name: Download PlotSquared-Bukkit v7
+        run: curl -qsL https://repo.maven.apache.org/maven2/com/intellectualsites/plotsquared/plotsquared-bukkit/7.0.0/plotsquared-bukkit-7.0.0.jar
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Generate diff for PlotSquared-Core v6 -> v7
+        run: java -jar japicmp-0.17.1-jar-with-dependencies.jar -n plotsquared-core-7.0.0.jar -o PlotSquared-Core-6.10.5.jar --ignore-missing-classes -m -a public --html-file plotsquared-core-v6-to-v7.html
+      - name: Generate diff for PlotSquared-Bukkit v6 -> v7
+        run: java -jar japicmp-0.17.1-jar-with-dependencies.jar -n plotsquared-bukkit-7.0.0.jar -o PlotSquared-Bukkit-6.10.5.jar --ignore-missing-classes -m -a public --html-file plotsquared-bukkit-v6-to-v7.html
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: intellectualsites-bot
+          author_email: "95638266+intellectualsites-bot@users.noreply.github.com"
+          message: 'Update diff'  
