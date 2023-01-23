@@ -25,7 +25,7 @@ jobs:
         run: java -jar japicmp-0.17.1-jar-with-dependencies.jar -n PlotSquared-Core-7.0.0-20230113.234454-9.jar -o PlotSquared-Core-6.10.5.jar --ignore-missing-classes -m -a public --html-file plotsquared-core-v6-to-v7.html
       - name: Generate diff for PlotSquared-Bukkit v6 -> v7
         run: java -jar japicmp-0.17.1-jar-with-dependencies.jar -n PlotSquared-Bukkit-7.0.0-20230113.234454-9.jar -o PlotSquared-Bukkit-6.10.5.jar --ignore-missing-classes -m -a public --html-file plotsquared-bukkit-v6-to-v7.html
-      - name: Move reports to output directory
+      - name: Move api-diff to output directory
         run: |
           mv plotsquared-core-v6-to-v7.html reports/plotsquared-core-v6-to-v7.html
           mv plotsquared-bukkit-v6-to-v7.html reports/plotsquared-bukkit-v6-to-v7.html
@@ -35,4 +35,4 @@ jobs:
           author_name: intellectualsites-bot
           author_email: "95638266+intellectualsites-bot@users.noreply.github.com"
           message: 'Update diff'
-          add: 'reports'
+          add: 'api-diff'
