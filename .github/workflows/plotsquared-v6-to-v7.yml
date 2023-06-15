@@ -7,24 +7,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download japicmp
-        run: curl -sLOJ https://repo.maven.apache.org/maven2/com/github/siom79/japicmp/japicmp/0.17.1/japicmp-0.17.1-jar-with-dependencies.jar
+        run: curl -sLOJ https://repo.maven.apache.org/maven2/com/github/siom79/japicmp/japicmp/0.17.2/japicmp-0.17.2-jar-with-dependencies.jar
       - name: Download PlotSquared-Core v6
-        run: curl -sLOJ https://repo.maven.apache.org/maven2/com/plotsquared/PlotSquared-Core/6.10.5/PlotSquared-Core-6.10.5.jar
+        run: curl -sLOJ https://repo.maven.apache.org/maven2/com/plotsquared/PlotSquared-Core/6.11.1/PlotSquared-Core-6.11.1.jar
       - name: Download PlotSquared-Bukkit v6
-        run: curl -sLOJ https://repo.maven.apache.org/maven2/com/plotsquared/PlotSquared-Bukkit/6.10.5/PlotSquared-Bukkit-6.10.5.jar
+        run: curl -sLOJ https://repo.maven.apache.org/maven2/com/plotsquared/PlotSquared-Bukkit/6.11.1/PlotSquared-Bukkit-6.11.1.jar
       - name: Download PlotSquared-Core v7
-        run: curl -sLOJ https://s01.oss.sonatype.org/content/repositories/snapshots/com/plotsquared/PlotSquared-Core/7.0.0-SNAPSHOT/PlotSquared-Core-7.0.0-20230113.234454-9.jar
+        run: curl -sLOJ https://s01.oss.sonatype.org/content/repositories/snapshots/com/intellectualsites/plotsquared/plotsquared-core/7.0.0-SNAPSHOT/plotsquared-core-7.0.0-20230615.153254-8.jar
       - name: Download PlotSquared-Bukkit v7
-        run: curl -sLOJ https://s01.oss.sonatype.org/content/repositories/snapshots/com/plotsquared/PlotSquared-Bukkit/7.0.0-SNAPSHOT/PlotSquared-Bukkit-7.0.0-20230113.234454-9.jar
+        run: curl -sLOJ https://s01.oss.sonatype.org/content/repositories/snapshots/com/intellectualsites/plotsquared/plotsquared-bukkit/7.0.0-SNAPSHOT/plotsquared-bukkit-7.0.0-20230615.153254-8.jar
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 17
       - name: Generate diff for PlotSquared-Core v6 -> v7
-        run: java -jar japicmp-0.17.1-jar-with-dependencies.jar -n PlotSquared-Core-7.0.0-20230113.234454-9.jar -o PlotSquared-Core-6.10.5.jar --ignore-missing-classes -m -a public --html-file plotsquared-core-v6-to-v7.html
+        run: java -jar japicmp-0.17.2-jar-with-dependencies.jar -n plotsquared-core-7.0.0-20230615.153254-8.jar -o PlotSquared-Core-6.11.1.jar --ignore-missing-classes -m -a public --html-file plotsquared-core-v6-to-v7.html
       - name: Generate diff for PlotSquared-Bukkit v6 -> v7
-        run: java -jar japicmp-0.17.1-jar-with-dependencies.jar -n PlotSquared-Bukkit-7.0.0-20230113.234454-9.jar -o PlotSquared-Bukkit-6.10.5.jar --ignore-missing-classes -m -a public --html-file plotsquared-bukkit-v6-to-v7.html
+        run: java -jar japicmp-0.17.2-jar-with-dependencies.jar -n plotsquared-bukkit-7.0.0-20230615.153254-8.jar -o PlotSquared-Bukkit-6.11.1.jar --ignore-missing-classes -m -a public --html-file plotsquared-bukkit-v6-to-v7.html
       - name: Move api-diff to output directory
         run: |
           mv plotsquared-core-v6-to-v7.html reports/plotsquared-core-v6-to-v7.html
